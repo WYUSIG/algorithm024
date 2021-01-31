@@ -83,11 +83,11 @@ class Solution {
 //思路就是从右往左(从大到小)放
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-		//结果数组右下标
+	//结果数组右下标
         int resultRight = m + n - 1;
-		//m长度的nums1的右下标
+	//m长度的nums1的右下标
         int right1 = m - 1;
-		//n长度的num2的右下标
+	//n长度的num2的右下标
         int right2 = n - 1;
         while (right1 >= 0 || right2 >= 0) {
             if (right1 < 0) {
