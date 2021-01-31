@@ -14,10 +14,7 @@ while (!deque.isEmpty()){
 }
 System.out.println(deque);
 ```
-##题目：分析 Queue 和 Priority Queue 的源码##
-
-
-##题目：删除排序数组中的重复项（Facebook、字节跳动、微软在半年内面试中考过）##
+## 题目：删除排序数组中的重复项（Facebook、字节跳动、微软在半年内面试中考过） ##
 ```
 //关键点：排序数组
 class Solution {
@@ -39,7 +36,7 @@ class Solution {
 }
 ```
 
-##题目：旋转数组（微软、亚马逊、PayPal 在半年内面试中考过）##
+## 题目：旋转数组（微软、亚马逊、PayPal 在半年内面试中考过） ##
 ```
 //翻转法
 class Solution {
@@ -62,7 +59,7 @@ class Solution {
 }
 ```
 
-##题目：合并两个有序链表（亚马逊、字节跳动在半年内面试常考）##
+## 题目：合并两个有序链表（亚马逊、字节跳动在半年内面试常考）##
 ```
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -81,7 +78,7 @@ class Solution {
 }
 ```
 
-##题目：合并两个有序数组（Facebook 在半年内面试常考）##
+## 题目：合并两个有序数组（Facebook 在半年内面试常考） ##
 ```
 //思路就是从右往左(从大到小)放
 class Solution {
@@ -106,7 +103,7 @@ class Solution {
     }
 }
 ```
-##题目：两数之和（亚马逊、字节跳动、谷歌、Facebook、苹果、微软在半年内面试中高频常考）##
+## 题目：两数之和（亚马逊、字节跳动、谷歌、Facebook、苹果、微软在半年内面试中高频常考） ##
 ```
 //利用哈希表减少一层循环
 class Solution {
@@ -123,7 +120,7 @@ class Solution {
     }
 }
 ```
-##移动零（Facebook、亚马逊、苹果在半年内面试中考过）##
+## 移动零（Facebook、亚马逊、苹果在半年内面试中考过） ##
 ```
 class Solution {
     public void moveZeroes(int[] nums) {
@@ -136,6 +133,92 @@ class Solution {
                 j++;
             }
         }
+    }
+}
+```
+## 设计循环双端队列（Facebook 在 1 年内面试中考过） ##
+```
+class MyCircularDeque {
+
+    int[] data;
+
+    int capacity = 0;
+
+    int count = 0;
+
+    /** Initialize your data structure here. Set the size of the deque to be k. */
+    public MyCircularDeque(int k) {
+        data = new int[k];
+        capacity = k;
+    }
+    
+    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    public boolean insertFront(int value) {
+        if((count+1) > capacity){
+            return false;
+        }
+        System.arraycopy(data,0,data,1,count);
+        data[0] = value;
+        count++;
+        return true;
+    }
+    
+    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    public boolean insertLast(int value) {
+        if((count+1) > capacity){
+            return false;
+        }
+        data[count] = value;
+        count++;
+        return true;
+    }
+    
+    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    public boolean deleteFront() {
+        if(count > 1){
+            System.arraycopy(data,1,data,0,count-1);
+        }
+        if(count>0){
+            data[count-1] = -1;
+            count--;
+            return true;
+        }else{
+            return false;
+        }  
+    }
+    
+    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    public boolean deleteLast() {
+        if(count > 0){
+            data[count-1] = -1;
+            count--;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /** Get the front item from the deque. */
+    public int getFront() {
+        return data[0];
+    }
+    
+    /** Get the last item from the deque. */
+    public int getRear() {
+        if(count == 0){
+            return -1;
+        }
+        return data[count-1];
+    }
+    
+    /** Checks whether the circular deque is empty or not. */
+    public boolean isEmpty() {
+        return count == 0;
+    }
+    
+    /** Checks whether the circular deque is full or not. */
+    public boolean isFull() {
+        return count == capacity;
     }
 }
 ```
