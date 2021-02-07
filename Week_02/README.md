@@ -32,6 +32,8 @@ java HashMap常用API：
 - public V get(Object key)
 - public V remove(Object key)
 - public boolean containsKey(Object key)
+- public V getOrDefault(Object key, V defaultValue)
+- public Collection<V> values()
 - 遍历：for(Map.Entry<K,V> entry : map.entrySet())使用public Set<Map.Entry<K,V>> entrySet()
 ```
 class Solution {
@@ -51,6 +53,7 @@ class Solution {
 ```
 ## N 叉树的前序遍历 ##
 思路：递归，迭代(栈辅助)
+
 最优解：递归(实测)
 ```
 //递归
@@ -87,6 +90,27 @@ class Solution {
             }
         }
         return res;
+    }
+}
+```
+## 字母异位词分组 ##
+思路：排序，哈希表
+
+最优解：排序
+
+```
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> map = new HashMap<>();
+        for(String str : strs){
+            char[] strChar = str.toCharArray();
+            Arrays.sort(strChar);
+            String key = new String(strChar);
+            List<String> list = map.getOrDefault(key,new ArrayList<>());
+            list.add(str);
+            map.put(key,list);
+        } 
+        return new ArrayList<>(map.values());
     }
 }
 ```
