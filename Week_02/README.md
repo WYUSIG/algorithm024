@@ -21,3 +21,72 @@ class Solution {
     }
 }
 ```
+## 两数之和 ##
+思路：暴力、哈希表、排序双指针
+
+最优解：哈希表
+
+java HashMap常用API：
+
+- public V put(K key, V value)
+- public V get(Object key)
+- public V remove(Object key)
+- public boolean containsKey(Object key)
+- 遍历：for(Map.Entry<K,V> entry : map.entrySet())使用public Set<Map.Entry<K,V>> entrySet()
+```
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i = 0; i<nums.length; i++) {
+            int other = target - nums[i];
+            if(map.containsKey(other)) {
+                return new int[]{map.get(other), i};
+            }else{
+                map.put(nums[i], i);
+            }
+        }
+        return new int[2];
+    }
+}
+```
+## N 叉树的前序遍历 ##
+思路：递归，迭代(栈辅助)
+最优解：递归(实测)
+```
+//递归
+class Solution {
+    List<Integer> res = new ArrayList<>();
+    public List<Integer> preorder(Node root) {
+        if(root == null) {
+            return res;
+        }
+        res.add(root.val);
+        for(Node node : root.children) {
+            preorder(node);
+        }
+        return res;
+    }
+}
+```
+```
+//迭代
+class Solution {
+    public List<Integer> preorder(Node root) {
+        LinkedList<Node> stack = new LinkedList<>();
+        List<Integer> res = new ArrayList<>();
+        if(root == null){
+            return res;
+        }
+        stack.add(root);
+        while(!stack.isEmpty()){
+            Node curNode = stack.pollLast();
+            res.add(curNode.val);
+            Collections.reverse(curNode.children);
+            for(Node node : curNode.children){
+                stack.add(node);
+            }
+        }
+        return res;
+    }
+}
+```
